@@ -1,9 +1,10 @@
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg");
 const ffprobePath = require("@ffprobe-installer/ffprobe");
-const { Client, LocalAuth } = require("whatsapp-web.js");
+const { Client, LocalAuth, MessageMedia } = require("whatsapp-web.js");
 const qrcode = require("qrcode-terminal");
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
+const ytmp3 = require("./tugas/ytmp3");
 
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 ffmpeg.setFfprobePath(ffprobePath.path);
@@ -57,6 +58,8 @@ client.on("message", async (msg) => {
         stickerName: msg.body ? msg.body.split(",")[1] : "sticker",
       });
     }
+  } else if (msg.body.startsWith("/ytmp3")) {
+    ytmp3(msg.body.split(" ")[1], msg, client, MessageMedia);
   } else if (msg.body === "/link-wa") {
     // create link wa pengirim
     const link = `*Link WA kamu*\nhttps://wa.me/${msg.from.replace(
