@@ -1,0 +1,18 @@
+{
+  "name": "nabil-whatsapp-bot",
+  "version": "1.0.0",
+  "description": "belajar bot whatsapp",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffprobe-installer/ffprobe": "^2.1.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "nodemon": "^3.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.21.0",
+    "ytdl-core": "^4.11.5"
+  }
+}

@@ -1,0 +1,8 @@
+*_BOT WHATSAPP_*
+*_BY : Nabil Aziz Bima Anggita_*
+
+*_List Perintah:_*
+*/link-wa* - Mengirimkan link whatsapp mu
+
+*Note: Sticker*
+Kirim gambar atau video atau gif dengan caption "pembuat,nama sticker" maka akan menjadikan sticker dengan author dan pack yang ditentukan
