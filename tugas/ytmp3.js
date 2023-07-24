@@ -3,18 +3,17 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const fs = require("fs");
 const ffmpeg = require("fluent-ffmpeg");
 ffmpeg.setFfmpegPath(ffmpegPath);
-const path = require("path");
 
 const ytmp3 = async (url, msg, client, MessageMedia) => {
   client.sendMessage(msg.from, "Sedang di proses 😊...");
   // make directory if not exist
-  if (
-    !fs.existsSync(
-      path.resolve(__dirname, `media/${msg.from.replace("@c.us", "")}`)
-    )
-  ) {
+  if (!fs.existsSync(`../media/${msg.from.replace("@c.us", "")}`)) {
     fs.mkdirSync(
-      path.resolve(__dirname, `media/${msg.from.replace("@c.us", "")}`)
+      `../media/${msg.from.replace("@c.us", "")}`,
+      { recursive: true },
+      (err) => {
+        if (err) throw err;
+      }
     );
   }
   const stream = ytdl(url, { filter: "audioonly" });
@@ -31,10 +30,7 @@ const ytmp3 = async (url, msg, client, MessageMedia) => {
     })
     .pipe(
       fs.createWriteStream(
-        path.resolve(
-          __dirname,
-          `media/${msg.from.replace("@c.us", "")}/${title}.mp3`
-        )
+        `../media/${msg.from.replace("@c.us", "")}/${title}.mp3`
       )
     )
     .on("error", (err) => {
@@ -43,10 +39,7 @@ const ytmp3 = async (url, msg, client, MessageMedia) => {
     .on("finish", () => {
       console.log("File saved successfully.");
       const media = MessageMedia.fromFilePath(
-        path.resolve(
-          __dirname,
-          `media/${msg.from.replace("@c.us", "")}/${title}.mp3`
-        )
+        `../media/${msg.from.replace("@c.us", "")}/${title}.mp3`
       );
       // send as document
       client
@@ -55,10 +48,7 @@ const ytmp3 = async (url, msg, client, MessageMedia) => {
         })
         .then(() => {
           fs.unlinkSync(
-            path.resolve(
-              __dirname,
-              `media/${msg.from.replace("@c.us", "")}/${title}.mp3`
-            )
+            `../media/${msg.from.replace("@c.us", "")}/${title}.mp3`
           );
         });
     });
