@@ -5,6 +5,7 @@ const qrcode = require("qrcode-terminal");
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
 const ytmp3 = require("./tugas/ytmp3");
+const yt = require("./tugas/yt");
 
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 ffmpeg.setFfprobePath(ffprobePath.path);
@@ -67,13 +68,12 @@ client.on("message", async (msg) => {
       ""
     )}\n*Atau*\napi.whatsapp.com/send?phone=${msg.from.replace("@c.us", "")}`;
     client.sendMessage(msg.from, link);
-  } else if (msg.body) {
-    // perintah atau bantuan
-    if (msg.body || msg.body === "help") {
-      // read from file help.txt
-      const help = fs.readFileSync("./help.txt", "utf-8");
-      client.sendMessage(msg.from, help);
-    }
+  } else if (msg.body.startsWith("/yt")) {
+    yt(msg.body.split(" ")[1], msg, client, MessageMedia);
+  } else if (msg.body === "/help") {
+    // read from file help.txt
+    const help = fs.readFileSync("./help.txt", "utf-8");
+    client.sendMessage(msg.from, help);
   }
 });
 
