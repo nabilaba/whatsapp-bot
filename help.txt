@@ -3,8 +3,10 @@
 
 📄 *_List Perintah:_*
 */help* - Menampilkan daftar perintah
+*/fb* - Mengirimkan link download video facebook
+*/ig* - Mengirimkan link download gambar atau video instagram
 */link-wa* - Mengirimkan link whatsapp mu
-*/yt* - Mengirimkan link video download youtube
+*/yt* - Mengirimkan link download video youtube
 */ytmp3* - Mengirimkan document lagu download youtube
 
 💥 *_Pembuatan Sticker_*

@@ -6,6 +6,10 @@ const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
 const ytmp3 = require("./tugas/ytmp3");
 const yt = require("./tugas/yt");
+const linkWa = require("./tugas/link-wa");
+const ig = require("./tugas/ig");
+const sticker = require("./tugas/sticker");
+const fb = require("./tugas/fb");
 
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 ffmpeg.setFfprobePath(ffprobePath.path);
@@ -48,26 +52,15 @@ client.on("auth_failure", function () {
 client.on("message", async (msg) => {
   client.sendSeen(msg.from);
   if (msg.hasMedia) {
-    if (msg.type === "image" || msg.isGif || msg.type === "video") {
-      client.sendMessage(msg.from, "Sedang di proses 😊...");
-      const media = await msg.downloadMedia();
-      msg.reply(media, null, {
-        sendMediaAsSticker: true,
-        stickerAuthor: msg.body
-          ? msg.body.split(",")[0]
-          : msg.from.replace("@c.us", ""),
-        stickerName: msg.body ? msg.body.split(",")[1] : "sticker",
-      });
-    }
+    sticker(msg, client);
+  } else if (msg.body.startsWith("/fb")) {
+    fb(msg, client, MessageMedia);
+  } else if (msg.body.startsWith("/ig")) {
+    ig(msg, client, MessageMedia);
   } else if (msg.body.startsWith("/ytmp3")) {
     ytmp3(msg.body.split(" ")[1], msg, client, MessageMedia);
   } else if (msg.body === "/link-wa") {
-    // create link wa pengirim
-    const link = `*Link WA kamu*\nhttps://wa.me/${msg.from.replace(
-      "@c.us",
-      ""
-    )}\n*Atau*\napi.whatsapp.com/send?phone=${msg.from.replace("@c.us", "")}`;
-    client.sendMessage(msg.from, link);
+    linkWa(msg, client);
   } else if (msg.body.startsWith("/yt")) {
     yt(msg.body.split(" ")[1], msg, client, MessageMedia);
   } else if (msg.body === "/help") {
